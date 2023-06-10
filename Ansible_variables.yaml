@@ -1,0 +1,15 @@
+-
+    name: 'Update nameserver entry into resolv.conf file on localhost'
+    hosts: localhost
+    tasks:
+        -
+            name: 'Update nameserver entry into resolv.conf file'
+            lineinfile:
+                path: /etc/resolv.conf
+                line: 'nameserver {{nameserver_ip}}'
+
+
+#inventory
+# Sample Inventory File
+
+localhost ansible_connection=localhost nameserver_ip=10.1.250.10
