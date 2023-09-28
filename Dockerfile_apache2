@@ -1,0 +1,4 @@
+FROM ubuntu:latest
+RUN apt-get update && apt install -y apache2 && sed -i "s/80/3001/g" /etc/apache2/ports.conf
+EXPOSE 3001
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND", "-k", "start"]
