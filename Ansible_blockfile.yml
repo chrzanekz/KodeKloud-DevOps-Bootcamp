@@ -1,0 +1,27 @@
+--
+- name: PLAYBOOK
+  hosts: all
+  become: yes
+  tasks:
+  - name: install httpd
+    yum:
+      name: httpd
+      state: latest
+  - name: create a blank file
+    file:
+      path: /var/www/html/index.html
+      owner: apache
+      group: apache
+      mode: '0777'
+      state: touch
+  - name: blockinfile changes
+    blockinfile:
+      path: /var/www/html/index.html
+      block: |
+        Welcome to XfusionCorp!
+        This is Nautilus sample file, created using Ansible!
+        Please do not modify this file manually!
+  - name: start service httpd
+    service:
+      name: httpd
+      state: started
