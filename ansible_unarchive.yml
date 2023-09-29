@@ -1,0 +1,13 @@
+---
+- name: unarchive
+  hosts: all
+  become: yes
+  tasks:
+  - name: unarchive files
+    unarchive:
+      src: /usr/src/finance/xfusion.zip
+      dest: /opt/finance/
+      owner: "{{ ansible_user }}"
+      group: "{{ ansible_user }}"
+      mode: '0755'
+      remote_src: no
