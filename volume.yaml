@@ -1,0 +1,36 @@
+#manifest for two containers in pod
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-share-nautilus
+spec:
+  containers:
+    - name: volume-container-nautilus-1
+      image: ubuntu:latest
+      command: ["sleep", "3600"]
+      volumeMounts:
+        - name: volume-share
+          mountPath: /tmp/beta
+    - name: volume-container-nautilus-2
+      image: ubuntu:latest
+      command: ["sleep", "3600"]
+      volumeMounts:
+        - name: volume-share
+          mountPath: /tmp/demo
+  volumes:
+    - name: volume-share
+      emptyDir: {}
+
+#exec into the first container to create a file beta.txt with some content:
+
+#kubectl exec -it volume-share-nautilus -c volume-container-nautilus-1 -- /bin/bash
+#echo "This is beta.txt" > /tmp/beta/beta.txt
+#exit
+
+
+#exec into the second container and check if beta.txt is present in the shared volume:
+
+#kubectl exec -it volume-share-nautilus -c volume-container-nautilus-2 -- /bin/bash
+#cat /tmp/demo/beta.txt
+#exit
