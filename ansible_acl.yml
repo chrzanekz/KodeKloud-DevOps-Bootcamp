@@ -1,0 +1,35 @@
+    - name: Set ACL
+      acl:
+        path: /opt/security/blog.txt
+        entity: tony
+        etype: group
+        permissions: r
+        state: present
+- hosts: stapp02
+  become: yes
+  tasks:
+    - name: Create empty file
+      file:
+        path: /opt/security/story.txt
+        state: touch
+    - name: Set ACL
+      acl:
+        path: /opt/security/story.txt
+        entity: steve
+        etype: user
+        permissions: rw
+        state: present
+- hosts: stapp03
+  become: yes
+  tasks:
+    - name: Create empty file
+      file:
+        path: /opt/security/media.txt
+        state: touch
+    - name: Set ACL
+      acl:
+        path: /opt/security/media.txt
+        entity: banner
+        etype: group  
+        permissions: rw
+        state: present
