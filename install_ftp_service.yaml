@@ -1,0 +1,15 @@
+---
+- name: Install and configure vsftpd
+  hosts: all
+  become: true
+  tasks:
+    - name: Install vsftpd package
+      yum:
+        name: vsftpd
+        state: present
+
+    - name: Start vsftpd service
+      systemd:
+        name: vsftpd
+        enabled: yes
+        state: started
