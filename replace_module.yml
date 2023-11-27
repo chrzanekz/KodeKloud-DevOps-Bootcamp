@@ -1,0 +1,36 @@
+---
+- hosts: stapp01
+  become: yes
+  tasks:
+  - name: replace blog file
+    replace:
+        path: /opt/finance/blog.txt
+        regexp: 'FusionCorp'
+        replace: 'Nautilus'
+        backup: yes
+- hosts: stapp02
+  become: yes
+  tasks:
+  - name: replace story file
+    replace:
+        path: /opt/finance/story.txt
+        regexp: 'xFusionCorp'
+        replace: 'KodeKloud'
+        backup: yes
+- hosts: stapp03
+  become: yes
+  tasks:
+  - name: replace media file
+    replace:
+        path: /opt/finance/media.txt
+        regexp: 'KodeKloud'
+        replace: 'xFusionCorp Industries'
+        backup: yes
+~                                                                                
+~                                                                                
+~                                                                                
+~                                                                                
+~                                                                                
+~                                                                                
+~                                                                                
+"playbook.yml" 28L, 605C
